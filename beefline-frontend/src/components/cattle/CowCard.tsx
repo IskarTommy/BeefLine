@@ -1,5 +1,5 @@
 import React from 'react';
-import { Cattle } from '../../types';
+import type { Cattle } from '../../types';
 
 interface CowCardProps {
   cattle: Cattle;

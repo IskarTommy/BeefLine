@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { AppLayout } from './components';
-import { HomePage } from './pages';
+import { HomePage, CowDetailPage, SearchPage } from './pages';
 
 function App() {
   return (
@@ -10,6 +10,8 @@ function App() {
         <AppLayout>
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/search" element={<SearchPage />} />
+            <Route path="/cattle/:id" element={<CowDetailPage />} />
             {/* Additional routes will be added in future tasks */}
           </Routes>
         </AppLayout>

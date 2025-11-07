@@ -1,5 +1,5 @@
 import React from 'react';
-import { Cattle, Document } from '../../types';
+import type { Cattle, Document } from '../../types';
 import { ImageGallery } from './ImageGallery';
 
 interface CowDetailProps {
@@ -84,9 +84,9 @@ export const CowDetail: React.FC<CowDetailProps> = ({ cattle, loading = false })
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
         {/* Image Gallery */}
-        <div>
+        <div className="order-1 lg:order-1">
           <ImageGallery 
             images={cattle.images} 
             altText={`${cattle.breed} cattle`}
@@ -94,11 +94,11 @@ export const CowDetail: React.FC<CowDetailProps> = ({ cattle, loading = false })
         </div>
 
         {/* Cattle Information */}
-        <div className="space-y-6">
+        <div className="order-2 lg:order-2 space-y-4 lg:space-y-6">
           {/* Basic Information */}
-          <div className="bg-white rounded-lg border border-gray-200 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Cattle Information</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="bg-white rounded-lg border border-gray-200 p-4 lg:p-6">
+            <h2 className="text-lg lg:text-xl font-semibold text-gray-900 mb-4">Cattle Information</h2>
+            <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-500">Breed</label>
                 <p className="mt-1 text-lg text-gray-900">{cattle.breed}</p>
@@ -119,8 +119,8 @@ export const CowDetail: React.FC<CowDetailProps> = ({ cattle, loading = false })
           </div>
 
           {/* Health Information */}
-          <div className="bg-white rounded-lg border border-gray-200 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Health Information</h2>
+          <div className="bg-white rounded-lg border border-gray-200 p-4 lg:p-6">
+            <h2 className="text-lg lg:text-xl font-semibold text-gray-900 mb-4">Health Information</h2>
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-500">Vaccination Status</label>
@@ -151,8 +151,8 @@ export const CowDetail: React.FC<CowDetailProps> = ({ cattle, loading = false })
 
           {/* Health Certificates */}
           {cattle.healthCertificates && cattle.healthCertificates.length > 0 && (
-            <div className="bg-white rounded-lg border border-gray-200 p-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">Health Certificates</h2>
+            <div className="bg-white rounded-lg border border-gray-200 p-4 lg:p-6">
+              <h2 className="text-lg lg:text-xl font-semibold text-gray-900 mb-4">Health Certificates</h2>
               <div className="space-y-3">
                 {cattle.healthCertificates.map((doc: Document) => (
                   <div key={doc.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
@@ -185,8 +185,8 @@ export const CowDetail: React.FC<CowDetailProps> = ({ cattle, loading = false })
           )}
 
           {/* Seller Information */}
-          <div className="bg-white rounded-lg border border-gray-200 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Seller Information</h2>
+          <div className="bg-white rounded-lg border border-gray-200 p-4 lg:p-6">
+            <h2 className="text-lg lg:text-xl font-semibold text-gray-900 mb-4">Seller Information</h2>
             <div className="space-y-4">
               <div className="flex items-center space-x-3">
                 <div className="flex-shrink-0">
@@ -209,12 +209,12 @@ export const CowDetail: React.FC<CowDetailProps> = ({ cattle, loading = false })
                 </div>
               </div>
               
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="space-y-4 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-500">Phone</label>
                   <a 
                     href={`tel:${cattle.seller.phoneNumber}`}
-                    className="mt-1 text-blue-600 hover:text-blue-800 font-medium"
+                    className="mt-1 text-blue-600 hover:text-blue-800 font-medium block"
                   >
                     {cattle.seller.phoneNumber}
                   </a>
@@ -223,7 +223,7 @@ export const CowDetail: React.FC<CowDetailProps> = ({ cattle, loading = false })
                   <label className="block text-sm font-medium text-gray-500">Email</label>
                   <a 
                     href={`mailto:${cattle.seller.email}`}
-                    className="mt-1 text-blue-600 hover:text-blue-800 font-medium break-all"
+                    className="mt-1 text-blue-600 hover:text-blue-800 font-medium break-all block"
                   >
                     {cattle.seller.email}
                   </a>
@@ -233,8 +233,8 @@ export const CowDetail: React.FC<CowDetailProps> = ({ cattle, loading = false })
           </div>
 
           {/* Contact Actions */}
-          <div className="bg-white rounded-lg border border-gray-200 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Contact Seller</h2>
+          <div className="bg-white rounded-lg border border-gray-200 p-4 lg:p-6">
+            <h2 className="text-lg lg:text-xl font-semibold text-gray-900 mb-4">Contact Seller</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <a
                 href={`tel:${cattle.seller.phoneNumber}`}

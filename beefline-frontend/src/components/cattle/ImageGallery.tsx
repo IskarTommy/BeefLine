@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CattleImage } from '../../types';
+import type { CattleImage } from '../../types';
 
 interface ImageGalleryProps {
   images: CattleImage[];
@@ -31,7 +31,7 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, altText }) =
       <div className="relative">
         <div 
           className={`relative overflow-hidden rounded-lg bg-gray-100 cursor-pointer ${
-            isZoomed ? 'h-96' : 'h-96'
+            isZoomed ? 'h-64 sm:h-80 lg:h-96' : 'h-64 sm:h-80 lg:h-96'
           }`}
           onClick={() => setIsZoomed(!isZoomed)}
         >
@@ -99,12 +99,12 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, altText }) =
 
       {/* Thumbnail navigation */}
       {images.length > 1 && (
-        <div className="flex space-x-2 overflow-x-auto pb-2">
+        <div className="flex space-x-2 overflow-x-auto pb-2 scrollbar-hide">
           {images.map((image, index) => (
             <button
               key={image.id}
               onClick={() => setSelectedImageIndex(index)}
-              className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-colors ${
+              className={`flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden border-2 transition-colors ${
                 index === selectedImageIndex 
                   ? 'border-blue-500' 
                   : 'border-gray-200 hover:border-gray-300'

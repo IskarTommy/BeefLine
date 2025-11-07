@@ -1,5 +1,5 @@
 import React from 'react';
-import { Cattle, PaginatedResponse } from '../../types';
+import type { Cattle } from '../../types';
 import { CowCard } from './CowCard';
 
 interface CowListProps {

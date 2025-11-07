@@ -94,3 +94,22 @@ export interface SortOptions {
   field: 'price' | 'age' | 'weight' | 'createdAt';
   direction: 'asc' | 'desc';
 }
+
+// Search-related types
+export interface SearchSuggestion {
+  id: string;
+  text: string;
+  type: 'breed' | 'region' | 'recent' | 'popular';
+}
+
+export interface SearchHistory {
+  query: string;
+  timestamp: Date;
+}
+
+export interface SearchState {
+  query: string;
+  suggestions: SearchSuggestion[];
+  history: SearchHistory[];
+  isLoading: boolean;
+}
