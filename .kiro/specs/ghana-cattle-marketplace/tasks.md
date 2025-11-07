@@ -67,22 +67,35 @@
     - Test JWT token handling and refresh logic
     - _Requirements: 3.1, 3.2_
 
-- [ ] 4. Implement cattle listing components
-  - [ ] 4.1 Create CowCard component for cattle display
+- [x] 4. Implement cattle listing components
+
+
+
+
+
+  - [x] 4.1 Create CowCard component for cattle display
+
+
     - Build responsive card layout with image, breed, price, and key details
     - Add hover effects and click handling for navigation
     - Implement placeholder image for cattle without photos
     - _Requirements: 1.3, 4.3, 4.5_
 
+
+
   - [ ] 4.2 Build CowList component with grid layout
     - Create responsive grid layout for multiple cattle cards
     - Implement pagination for large datasets
     - Add loading states and empty state handling
+
+
     - _Requirements: 1.3, 2.2, 6.1_
 
   - [ ] 4.3 Develop CowDetail page for full cattle profiles
     - Create detailed cattle view with all information fields
     - Implement image gallery with zoom and navigation
+
+
     - Display seller contact information and health certificates
     - Add responsive layout for mobile and desktop
     - _Requirements: 1.3, 3.3, 4.3, 5.4, 6.2_
