@@ -10,6 +10,7 @@ interface AuthContextType {
   login: (credentials: LoginFormData) => Promise<void>;
   logout: () => Promise<void>;
   register: (userData: RegisterFormData) => Promise<void>;
+  updateUser: (userData: User) => void;
   clearError: () => void;
 }
 
@@ -136,6 +137,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
+  const updateUser = (userData: User) => {
+    setUser(userData);
+  };
+
   const clearError = () => {
     setError(null);
   };
@@ -148,6 +153,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     login,
     logout,
     register,
+    updateUser,
     clearError,
   };
 

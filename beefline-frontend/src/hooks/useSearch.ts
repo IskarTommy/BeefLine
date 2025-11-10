@@ -132,7 +132,7 @@ export const useSearch = (options: UseSearchOptions = {}): UseSearchReturn => {
       const searchFilters: SearchFilters = { ...filters };
       if (query) {
         // Add search query to filters - the API should handle this
-        (searchFilters as any).search = query;
+        (searchFilters as any).q = query;
       }
 
       const response = await cattleAPI.getCattle(

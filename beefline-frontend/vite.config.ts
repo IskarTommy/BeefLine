@@ -10,5 +10,13 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: './src/test/setup.ts',
     pool: 'vmThreads',
+    server: {
+      deps: {
+        inline: [
+          'react-router',
+          'react-router-dom'
+        ]
+      }
+    }
   },
 })

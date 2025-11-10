@@ -7,7 +7,7 @@ import type {
   ApiResponse, 
   PaginatedResponse, 
   SearchFilters, 
-  SortOptions 
+  SortOptions
 } from '../types';
 
 // Create axios instance with base configuration
@@ -145,6 +145,16 @@ export const userAPI = {
 
   updateProfile: async (userData: Partial<User>): Promise<ApiResponse<User>> => {
     const response: AxiosResponse<ApiResponse<User>> = await api.put('/users/profile/', userData);
+    return response.data;
+  },
+
+  changePassword: async (passwordData: { currentPassword: string; newPassword: string }): Promise<ApiResponse<null>> => {
+    const response: AxiosResponse<ApiResponse<null>> = await api.post('/users/change-password/', passwordData);
+    return response.data;
+  },
+
+  requestVerification: async (): Promise<ApiResponse<null>> => {
+    const response: AxiosResponse<ApiResponse<null>> = await api.post('/users/request-verification/');
     return response.data;
   },
 

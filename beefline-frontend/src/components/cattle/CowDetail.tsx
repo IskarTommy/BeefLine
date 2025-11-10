@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Cattle, Document } from '../../types';
 import { ImageGallery } from './ImageGallery';
+import { VerificationBadge } from '../user/VerificationBadge';
 
 interface CowDetailProps {
   cattle: Cattle;
@@ -74,9 +75,11 @@ export const CowDetail: React.FC<CowDetailProps> = ({ cattle, loading = false })
             </span>
           )}
           {cattle.seller.isVerified && (
-            <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
-              Verified Seller
-            </span>
+            <VerificationBadge 
+              isVerified={cattle.seller.isVerified} 
+              userType={cattle.seller.userType}
+              size="sm"
+            />
           )}
           <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-800">
             Listed {formatDate(cattle.createdAt)}
@@ -197,14 +200,19 @@ export const CowDetail: React.FC<CowDetailProps> = ({ cattle, loading = false })
                   </div>
                 </div>
                 <div>
-                  <p className="text-lg font-medium text-gray-900">
-                    {cattle.seller.firstName} {cattle.seller.lastName}
+                  <div className="flex items-center space-x-2">
+                    <p className="text-lg font-medium text-gray-900">
+                      {cattle.seller.firstName} {cattle.seller.lastName}
+                    </p>
                     {cattle.seller.isVerified && (
-                      <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">
-                        Verified
-                      </span>
+                      <VerificationBadge 
+                        isVerified={cattle.seller.isVerified} 
+                        userType={cattle.seller.userType}
+                        size="sm"
+                        showText={false}
+                      />
                     )}
-                  </p>
+                  </div>
                   <p className="text-sm text-gray-500">{cattle.seller.region}</p>
                 </div>
               </div>

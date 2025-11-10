@@ -9,6 +9,7 @@ interface CowListProps {
     currentPage: number;
     totalPages: number;
     total: number;
+    limit?: number;
     onPageChange: (page: number) => void;
   };
   onCattleClick?: (cattle: Cattle) => void;
@@ -71,13 +72,17 @@ export const CowList: React.FC<CowListProps> = ({
       <div className="flex items-center justify-between">
         <p className="text-sm text-gray-600">
           {pagination ? (
-            <>
-              Showing {((pagination.currentPage - 1) * cattle.length) + 1} to{' '}
-              {Math.min(pagination.currentPage * cattle.length, pagination.total)} of{' '}
-              {pagination.total} cattle
-            </>
+            pagination.total > 0 ? (
+              <>
+                Showing {((pagination.currentPage - 1) * Math.min(cattle.length, pagination.limit || 12)) + 1} to{' '}
+                {Math.min(((pagination.currentPage - 1) * (pagination.limit || 12)) + cattle.length, pagination.total)} of{' '}
+                {pagination.total.toLocaleString()} cattle
+              </>
+            ) : (
+              'No cattle found'
+            )
           ) : (
-            `${cattle.length} cattle found`
+            cattle.length > 0 ? `${cattle.length} cattle found` : 'No cattle found'
           )}
         </p>
       </div>
@@ -95,16 +100,16 @@ export const CowList: React.FC<CowListProps> = ({
 
       {/* Pagination */}
       {pagination && pagination.totalPages > 1 && (
-        <div className="flex items-center justify-center space-x-2 mt-8">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-2 mt-8">
           <button
             onClick={() => pagination.onPageChange(pagination.currentPage - 1)}
             disabled={pagination.currentPage === 1}
-            className="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full sm:w-auto touch-target px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             Previous
           </button>
           
-          <div className="flex space-x-1">
+          <div className="flex space-x-1 overflow-x-auto scrollbar-hide">
             {Array.from({ length: Math.min(5, pagination.totalPages) }, (_, i) => {
               let pageNumber;
               if (pagination.totalPages <= 5) {
@@ -121,7 +126,7 @@ export const CowList: React.FC<CowListProps> = ({
                 <button
                   key={pageNumber}
                   onClick={() => pagination.onPageChange(pageNumber)}
-                  className={`px-3 py-2 text-sm font-medium rounded-md ${
+                  className={`touch-target px-3 sm:px-4 py-2 text-sm font-medium rounded-md transition-colors ${
                     pageNumber === pagination.currentPage
                       ? 'bg-blue-600 text-white'
                       : 'text-gray-700 bg-white border border-gray-300 hover:bg-gray-50'
@@ -136,7 +141,7 @@ export const CowList: React.FC<CowListProps> = ({
           <button
             onClick={() => pagination.onPageChange(pagination.currentPage + 1)}
             disabled={pagination.currentPage === pagination.totalPages}
-            className="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full sm:w-auto touch-target px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             Next
           </button>

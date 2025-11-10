@@ -113,3 +113,44 @@ export interface SearchState {
   history: SearchHistory[];
   isLoading: boolean;
 }
+
+// Cattle form types
+export interface CattleFormData {
+  breed: 'West African Shorthorn' | 'Zebu' | 'Sanga';
+  age: number;
+  weight: number;
+  price: number;
+  healthNotes: string;
+  vaccinationStatus: boolean;
+  feedingHistory: string;
+  region: string;
+  isActive: boolean;
+}
+
+export interface ImageFile {
+  file: File;
+  preview: string;
+  caption?: string;
+  isPrimary: boolean;
+}
+
+export interface DocumentFile {
+  file: File;
+  name: string;
+  documentType: 'health_certificate' | 'vaccination_record';
+}
+
+// User profile form types
+export interface UserProfileFormData {
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  region: string;
+  email: string;
+}
+
+export interface PasswordChangeFormData {
+  currentPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+}
