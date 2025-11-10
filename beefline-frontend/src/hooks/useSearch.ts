@@ -2,6 +2,8 @@ import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import type { SearchFilters, SortOptions, Cattle } from '../types';
 import { cattleAPI } from '../services/api';
+import { cachedApiCall } from '../utils/cache';
+import { useDebounce } from './useDebounce';
 
 interface UseSearchOptions {
   initialQuery?: string;
@@ -122,7 +124,10 @@ export const useSearch = (options: UseSearchOptions = {}): UseSearchReturn => {
     setSearchParams(params);
   }, [setSearchParams]);
 
-  // Fetch cattle data
+  // Debounce query for better performance
+  const debouncedQuery = useDebounce(query, 300);
+
+  // Fetch cattle data with caching
   const fetchCattle = useCallback(async () => {
     setLoading(true);
     setError(null);
@@ -130,16 +135,29 @@ export const useSearch = (options: UseSearchOptions = {}): UseSearchReturn => {
     try {
       // Prepare search filters including query
       const searchFilters: SearchFilters = { ...filters };
-      if (query) {
+      if (debouncedQuery) {
         // Add search query to filters - the API should handle this
-        (searchFilters as any).q = query;
+        (searchFilters as any).q = debouncedQuery;
       }
 
-      const response = await cattleAPI.getCattle(
-        searchFilters,
-        sortOptions,
-        pagination.currentPage,
-        pagination.limit
+      // Generate cache key
+      const cacheKey = `cattle-search:${JSON.stringify({
+        filters: searchFilters,
+        sort: sortOptions,
+        page: pagination.currentPage,
+        limit: pagination.limit,
+      })}`;
+
+      // Use cached API call
+      const response = await cachedApiCall(
+        cacheKey,
+        () => cattleAPI.getCattle(
+          searchFilters,
+          sortOptions,
+          pagination.currentPage,
+          pagination.limit
+        ),
+        2 * 60 * 1000 // 2 minutes cache
       );
       
       setCattle(response.data);
@@ -155,7 +173,7 @@ export const useSearch = (options: UseSearchOptions = {}): UseSearchReturn => {
     } finally {
       setLoading(false);
     }
-  }, [query, filters, sortOptions, pagination.currentPage, pagination.limit]);
+  }, [debouncedQuery, filters, sortOptions, pagination.currentPage, pagination.limit]);
 
   // Fetch data when dependencies change
   useEffect(() => {

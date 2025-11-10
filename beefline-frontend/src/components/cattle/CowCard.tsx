@@ -1,13 +1,14 @@
 import React from 'react';
 import type { Cattle } from '../../types';
 import { VerificationBadge } from '../user/VerificationBadge';
+import { OptimizedImage } from '../ui/OptimizedImage';
 
 interface CowCardProps {
   cattle: Cattle;
   onClick?: (cattle: Cattle) => void;
 }
 
-export const CowCard: React.FC<CowCardProps> = ({ cattle, onClick }) => {
+export const CowCard: React.FC<CowCardProps> = React.memo(({ cattle, onClick }) => {
   const handleClick = () => {
     if (onClick) {
       onClick(cattle);
@@ -49,14 +50,10 @@ export const CowCard: React.FC<CowCardProps> = ({ cattle, onClick }) => {
     >
       {/* Image Section */}
       <div className="relative h-48 sm:h-56 md:h-48 bg-gray-200">
-        <img
+        <OptimizedImage
           src={primaryImage?.url || placeholderImage}
           alt={`${cattle.breed} cattle`}
           className="w-full h-full object-cover"
-          onError={(e) => {
-            const target = e.target as HTMLImageElement;
-            target.src = placeholderImage;
-          }}
         />
         {cattle.vaccinationStatus && (
           <div className="absolute top-2 right-2 bg-green-500 text-white px-3 py-1.5 rounded-full text-xs font-medium shadow-md">
@@ -120,4 +117,4 @@ export const CowCard: React.FC<CowCardProps> = ({ cattle, onClick }) => {
       </div>
     </div>
   );
-};
+});

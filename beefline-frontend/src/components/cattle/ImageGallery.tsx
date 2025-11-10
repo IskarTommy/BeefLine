@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import type { CattleImage } from '../../types';
+import { OptimizedImage } from '../ui/OptimizedImage';
 
 interface ImageGalleryProps {
   images: CattleImage[];
@@ -35,7 +36,7 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, altText }) =
           }`}
           onClick={() => setIsZoomed(!isZoomed)}
         >
-          <img
+          <OptimizedImage
             src={currentImage.url}
             alt={currentImage.caption || altText}
             className={`w-full h-full object-cover transition-transform duration-300 ${
@@ -112,7 +113,7 @@ export const ImageGallery: React.FC<ImageGalleryProps> = ({ images, altText }) =
                   : 'border-gray-200 hover:border-gray-300'
               }`}
             >
-              <img
+              <OptimizedImage
                 src={image.url}
                 alt={image.caption || `${altText} ${index + 1}`}
                 className="w-full h-full object-cover"

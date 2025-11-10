@@ -15,7 +15,7 @@ interface CowListProps {
   onCattleClick?: (cattle: Cattle) => void;
 }
 
-export const CowList: React.FC<CowListProps> = ({ 
+export const CowList: React.FC<CowListProps> = React.memo(({ 
   cattle, 
   loading = false, 
   pagination,
@@ -149,4 +149,4 @@ export const CowList: React.FC<CowListProps> = ({
       )}
     </div>
   );
-};
+});

@@ -1,21 +1,38 @@
+import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
+import { NotificationProvider } from './contexts/NotificationContext';
 import { AppLayout, ProtectedRoute } from './components';
-import { 
-  HomePage, 
-  CowDetailPage, 
-  SearchPage, 
-  LoginPage, 
-  RegisterPage, 
-  ProfilePage, 
-  DashboardPage 
-} from './pages';
-import TestPage from './pages/TestPage';
+import { ErrorBoundary, ToastContainer } from './components/ui';
+import OfflineIndicator from './components/ui/OfflineIndicator';
+import LoadingSpinner from './components/ui/LoadingSpinner';
+
+// Lazy load pages for code splitting
+const HomePage = lazy(() => import('./pages/HomePage'));
+const CowDetailPage = lazy(() => import('./pages/CowDetailPage'));
+const SearchPage = lazy(() => import('./pages/SearchPage'));
+const LoginPage = lazy(() => import('./pages/LoginPage'));
+const RegisterPage = lazy(() => import('./pages/RegisterPage'));
+const ProfilePage = lazy(() => import('./pages/ProfilePage'));
+const DashboardPage = lazy(() => import('./pages/DashboardPage'));
+const TestPage = lazy(() => import('./pages/TestPage'));
+
+// Loading fallback component
+const PageLoader = () => (
+  <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <LoadingSpinner size="lg" />
+  </div>
+);
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
+    <ErrorBoundary>
+      <NotificationProvider>
+        <AuthProvider>
+          <Router>
+            <ToastContainer />
+            <OfflineIndicator />
+            <Suspense fallback={<PageLoader />}>
         <Routes>
           {/* Homepage without layout for full-screen design */}
           <Route path="/" element={<HomePage />} />
@@ -83,8 +100,11 @@ function App() {
             </AppLayout>
           } />
         </Routes>
-      </Router>
-    </AuthProvider>
+            </Suspense>
+          </Router>
+        </AuthProvider>
+      </NotificationProvider>
+    </ErrorBoundary>
   );
 }
 

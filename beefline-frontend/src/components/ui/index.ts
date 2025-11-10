@@ -1,3 +1,10 @@
 export { FloatingElements } from './FloatingElements';
 export { Logo } from './Logo';
 export * from './Icons';
+export { default as ErrorBoundary } from './ErrorBoundary';
+export { default as LoadingSpinner } from './LoadingSpinner';
+export { default as OptimizedImage } from './OptimizedImage';
+export { default as Toast } from './Toast';
+export { default as ToastContainer } from './ToastContainer';
+export { default as ProgressBar } from './ProgressBar';
+export { default as OfflineIndicator } from './OfflineIndicator';
