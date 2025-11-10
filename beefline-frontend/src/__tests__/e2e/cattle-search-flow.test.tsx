@@ -57,12 +57,11 @@ describe('E2E: Cattle Search and Filter Flow', () => {
     
     // Mock successful cattle fetch
     vi.mocked(cattleAPI.getCattle).mockResolvedValue({
-      success: true,
       data: mockCattle,
       total: 1,
       page: 1,
+      limit: 12,
       totalPages: 1,
-      message: 'Cattle fetched successfully',
     });
   });
 
@@ -132,12 +131,11 @@ describe('E2E: Cattle Search and Filter Flow', () => {
   it('should handle empty search results', async () => {
     // Mock empty results
     vi.mocked(cattleAPI.getCattle).mockResolvedValue({
-      success: true,
       data: [],
       total: 0,
       page: 1,
+      limit: 12,
       totalPages: 0,
-      message: 'No cattle found',
     });
 
     render(

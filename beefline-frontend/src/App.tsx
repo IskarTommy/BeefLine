@@ -15,7 +15,6 @@ const LoginPage = lazy(() => import('./pages/LoginPage'));
 const RegisterPage = lazy(() => import('./pages/RegisterPage'));
 const ProfilePage = lazy(() => import('./pages/ProfilePage'));
 const DashboardPage = lazy(() => import('./pages/DashboardPage'));
-const TestPage = lazy(() => import('./pages/TestPage'));
 
 // Loading fallback component
 const PageLoader = () => (
@@ -36,9 +35,6 @@ function App() {
         <Routes>
           {/* Homepage without layout for full-screen design */}
           <Route path="/" element={<HomePage />} />
-          
-          {/* Test page for debugging CSS */}
-          <Route path="/test" element={<TestPage />} />
           
           {/* Public authentication pages */}
           <Route path="/login" element={<LoginPage />} />

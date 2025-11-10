@@ -45,7 +45,7 @@ export const SellerDashboard = ({ className = '' }: SellerDashboardProps) => {
   const handleAddCattle = async (
     data: CattleFormData, 
     images: ImageFile[], 
-    documents: DocumentFile[]
+    _documents: DocumentFile[]
   ) => {
     setIsSubmitting(true);
     try {
@@ -87,7 +87,7 @@ export const SellerDashboard = ({ className = '' }: SellerDashboardProps) => {
   const handleEditCattle = async (
     data: CattleFormData, 
     images: ImageFile[], 
-    documents: DocumentFile[]
+    _documents: DocumentFile[]
   ) => {
     if (!editingCattle) return;
     

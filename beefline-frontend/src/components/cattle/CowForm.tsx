@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useForm, type SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import type { Cattle, CattleFormData, ImageFile, DocumentFile } from '../../types';
-import { cattleAPI } from '../../services/api';
 import { ImageUpload } from './ImageUpload';
 import { DocumentUpload } from './DocumentUpload';
 
@@ -40,9 +39,7 @@ export const CowForm = ({ cattle, onSubmit, onCancel, isLoading = false }: CowFo
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-    reset,
     setValue,
-    watch
   } = useForm<CattleFormData>({
     defaultValues: {
       breed: 'West African Shorthorn',
@@ -78,19 +75,9 @@ export const CowForm = ({ cattle, onSubmit, onCancel, isLoading = false }: CowFo
 
 
 
-  const removeDocument = (index: number) => {
-    setDocuments(prev => prev.filter((_, i) => i !== index));
-  };
 
 
-
-  const updateDocumentType = (index: number, documentType: 'health_certificate' | 'vaccination_record') => {
-    setDocuments(prev => prev.map((doc, i) => 
-      i === index ? { ...doc, documentType } : doc
-    ));
-  };
-
-  const onFormSubmit: SubmitHandler<CattleFormData> = async (data) => {
+  const onFormSubmit = async (data: CattleFormData) => {
     setSubmitError(null);
     try {
       // Convert string values to numbers for numeric fields
