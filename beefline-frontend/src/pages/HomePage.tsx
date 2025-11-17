@@ -36,7 +36,7 @@ const HomePage: React.FC = () => {
         {/* Background Image */}
         <div className="absolute inset-0">
           <img 
-            src="/images/cattle/Dashboard Cow.jpg"
+            src="/images/cattle/livestock.jpg"
             alt="Cattle grazing in African countryside"
             className="w-full h-full object-cover"
             onError={(e) => {
